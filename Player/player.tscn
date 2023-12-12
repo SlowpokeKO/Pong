@@ -4,13 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://g4k64yjoxrau" path="res://icon.svg" id="2_8at6r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n6kpa"]
-size = Vector2(32, 171)
+size = Vector2(27.5, 171)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04e56"]
-size = Vector2(33, 173)
+size = Vector2(4, 173)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(50, 325)
+motion_mode = 1
 script = ExtResource("1_eojpy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,15 +20,14 @@ scale = Vector2(-0.254224, 1.35055)
 texture = ExtResource("2_8at6r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 0.5)
+position = Vector2(5.25, 0.5)
 shape = SubResource("RectangleShape2D_n6kpa")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(6.5, 0.5)
+[node name="FrontCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(21, 0.5)
 shape = SubResource("RectangleShape2D_04e56")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
