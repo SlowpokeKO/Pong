@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlbddx8a7p1ap"]
+
+[ext_resource type="Script" path="res://play.gd" id="1_umwg5"]
+[ext_resource type="PackedScene" uid="uid://brtca8so11d8o" path="res://Player/player.tscn" id="2_epoij"]
+[ext_resource type="PackedScene" uid="uid://c6360427xm3vf" path="res://ball.tscn" id="3_eyutu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mvre"]
+size = Vector2(1157.5, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecig4"]
+size = Vector2(20, 660)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_umwg5")
+
+[node name="Bottom" type="Area2D" parent="."]
+position = Vector2(575, 650)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource("RectangleShape2D_8mvre")
+
+[node name="Top" type="Area2D" parent="."]
+position = Vector2(575, 0)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+shape = SubResource("RectangleShape2D_8mvre")
+
+[node name="Right" type="Area2D" parent="."]
+position = Vector2(1150, 300)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_ecig4")
+
+[node name="Left" type="Area2D" parent="."]
+position = Vector2(0, 300)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(3, 25)
+shape = SubResource("RectangleShape2D_ecig4")
+
+[node name="Player" parent="." instance=ExtResource("2_epoij")]
+position = Vector2(64, 320)
+
+[node name="Player2" parent="." instance=ExtResource("2_epoij")]
+position = Vector2(1088, 320)
+rotation = 3.14159
+side = "p2"
+
+[node name="Ball" parent="." instance=ExtResource("3_eyutu")]
+position = Vector2(575, 320)
+
+[node name="P1Label" type="Label" parent="."]
+offset_left = 264.0
+offset_top = 88.0
+offset_right = 329.0
+offset_bottom = 120.0
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+
+[node name="P2Label" type="Label" parent="."]
+offset_left = 760.0
+offset_top = 88.0
+offset_right = 825.0
+offset_bottom = 120.0
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+
+[node name="mainmenuButton" type="Button" parent="."]
+visible = false
+offset_left = 496.0
+offset_top = 384.0
+offset_right = 656.0
+offset_bottom = 444.0
+text = "Main Menu"
+
+[node name="quitButton" type="Button" parent="."]
+visible = false
+offset_left = 496.0
+offset_top = 480.0
+offset_right = 656.0
+offset_bottom = 540.0
+text = "Quit"
+
+[node name="gameoverLabel" type="Label" parent="."]
+visible = false
+offset_left = 472.0
+offset_top = 144.0
+offset_right = 576.0
+offset_bottom = 188.0
+scale = Vector2(2, 2)
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]
+[connection signal="body_entered" from="Top" to="." method="_on_top_body_entered"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[connection signal="pressed" from="mainmenuButton" to="." method="_on_mainmenu_button_pressed"]
+[connection signal="pressed" from="quitButton" to="." method="_on_quit_button_pressed"]

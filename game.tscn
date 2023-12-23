@@ -1,79 +1,66 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlbddx8a7p1ap"]
+[gd_scene load_steps=4 format=3 uid="uid://8dhtm0qs6ytk"]
 
-[ext_resource type="PackedScene" uid="uid://brtca8so11d8o" path="res://Player/player.tscn" id="1_2qnww"]
 [ext_resource type="Script" path="res://game.gd" id="1_o6vjv"]
-[ext_resource type="PackedScene" uid="uid://c6360427xm3vf" path="res://ball.tscn" id="2_b2tj4"]
+[ext_resource type="PackedScene" uid="uid://dpxmlohrlj8an" path="res://HowToPlay.tscn" id="2_qemng"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mvre"]
-size = Vector2(1157.5, 12)
+[sub_resource type="Theme" id="Theme_7mu16"]
+default_font_size = 27
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecig4"]
-size = Vector2(20, 660)
-
-[node name="Game" type="Node2D"]
+[node name="game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_o6vjv")
 
-[node name="Bottom" type="Area2D" parent="."]
-position = Vector2(575, 650)
-collision_mask = 3
+[node name="MainMenu" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
-shape = SubResource("RectangleShape2D_8mvre")
+[node name="StartButton" type="Button" parent="MainMenu"]
+offset_left = 448.0
+offset_top = 288.0
+offset_right = 704.0
+offset_bottom = 386.0
+theme = SubResource("Theme_7mu16")
+text = "START"
 
-[node name="Top" type="Area2D" parent="."]
-position = Vector2(575, 0)
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
-shape = SubResource("RectangleShape2D_8mvre")
-
-[node name="Right" type="Area2D" parent="."]
-position = Vector2(1150, 300)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2(0, 24)
-shape = SubResource("RectangleShape2D_ecig4")
-
-[node name="Left" type="Area2D" parent="."]
-position = Vector2(0, 300)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(3, 25)
-shape = SubResource("RectangleShape2D_ecig4")
-
-[node name="Player" parent="." instance=ExtResource("1_2qnww")]
-position = Vector2(65, 325)
-
-[node name="Player2" parent="." instance=ExtResource("1_2qnww")]
-position = Vector2(1090, 325)
-rotation = 3.14159
-side = "p2"
-
-[node name="Ball" parent="." instance=ExtResource("2_b2tj4")]
-
-[node name="P1Label" type="Label" parent="."]
-offset_left = 264.0
-offset_top = 84.0
-offset_right = 329.0
-offset_bottom = 116.0
-scale = Vector2(2, 2)
-text = "0"
+[node name="TitleLabel" type="Label" parent="MainMenu"]
+offset_left = 440.0
+offset_top = 96.0
+offset_right = 712.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 41
+text = "Pong"
 horizontal_alignment = 1
 
-[node name="P2Label" type="Label" parent="."]
-offset_left = 756.0
-offset_top = 83.0
-offset_right = 821.0
-offset_bottom = 115.0
-scale = Vector2(2, 2)
-text = "0"
-horizontal_alignment = 1
+[node name="HowToPlayButton" type="Button" parent="MainMenu"]
+offset_left = 448.0
+offset_top = 416.0
+offset_right = 704.0
+offset_bottom = 514.0
+theme = SubResource("Theme_7mu16")
+text = "How To Play"
 
-[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]
-[connection signal="body_entered" from="Top" to="." method="_on_top_body_entered"]
-[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
-[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[node name="PlayToLineEdit" type="LineEdit" parent="MainMenu"]
+offset_left = 599.0
+offset_top = 207.0
+offset_right = 674.0
+offset_bottom = 238.0
+
+[node name="FirstToLabel" type="Label" parent="MainMenu"]
+offset_left = 496.0
+offset_top = 207.0
+offset_right = 584.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 21
+text = "First to:"
+vertical_alignment = 1
+
+[node name="HowToPlay" parent="." instance=ExtResource("2_qemng")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainMenu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="text_changed" from="MainMenu/PlayToLineEdit" to="." method="_on_play_to_line_edit_text_changed"]

@@ -31,6 +31,10 @@ func _on_area_2d_body_entered(body):
 	if body.get_collision_layer() == 2:
 		body.direction.x *= -1
 		Main.side = side
+		if side == 'p1':
+			body.modulate = Color.BLUE
+		elif side == 'p2':
+			body.modulate = Color.RED
 	
 
 

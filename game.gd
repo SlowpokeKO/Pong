@@ -1,37 +1,19 @@
-extends Node2D
-
-#func _process(delta):
+extends Control
 
 
 
-func _on_bottom_body_entered(body):
-	if body.get_collision_layer() == 2:
-		body.direction.y *= -1
-#	elif body.get_collision_layer() == 1:
-#		print(body.position)
+func _on_how_to_play_button_pressed():
+	$MainMenu.visible = false
+	$HowToPlay.visible = true
 
 
-func _on_top_body_entered(body):
-	#if body.is_in_group('Ball'):
-	if body.get_collision_layer() == 2:
-		body.direction.y *= -1
-#	elif body.get_collision_layer() == 1:
-#		print(body.position)
+func _on_start_button_pressed():
+	if not $MainMenu/PlayToLineEdit.text == "":
+		Main.playTo = int($MainMenu/PlayToLineEdit.text)
+	
+	get_tree().change_scene_to_file("res://play.tscn")
 
 
-func _on_right_body_entered(body):
-	body.queue_free()
-	var e = preload("res://ball.tscn").instantiate()
-	add_child(e)
-	e.global_position = Vector2(575, 325)
-	Main.p1_score += 1
-	$P1Label.text = str(Main.p1_score)
-
-
-func _on_left_body_entered(body):
-	body.queue_free()
-	var e = preload("res://ball.tscn").instantiate()
-	add_child(e)
-	e.global_position = Vector2(575, 325)
-	Main.p2_score += 1
-	$P2Label.text = str(Main.p2_score)
+func _on_play_to_line_edit_text_changed(new_text):
+	$MainMenu/PlayToLineEdit.text = str(float($MainMenu/PlayToLineEdit.text))
+	$MainMenu/PlayToLineEdit.caret_column = len($MainMenu/PlayToLineEdit.text)
